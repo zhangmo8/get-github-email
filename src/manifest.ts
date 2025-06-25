@@ -35,12 +35,13 @@ export async function getManifest() {
       128: './assets/icon-512.png',
     },
     permissions: [
-      'tabs',
       'storage',
       'activeTab',
-      'sidePanel',
     ],
-    host_permissions: ['*://*/*'],
+    host_permissions: [
+      '*://*/*',
+      'https://api.github.com/*',
+    ],
     content_scripts: [
       {
         matches: [
@@ -65,18 +66,18 @@ export async function getManifest() {
     },
   }
 
-  // add sidepanel
-  if (isFirefox) {
-    manifest.sidebar_action = {
-      default_panel: 'dist/sidepanel/index.html',
-    }
-  }
-  else {
-    // the sidebar_action does not work for chromium based
-    (manifest as any).side_panel = {
-      default_path: 'dist/sidepanel/index.html',
-    }
-  }
+  // 我们主要使用 popup，暂时不需要 sidepanel
+  // if (isFirefox) {
+  //   manifest.sidebar_action = {
+  //     default_panel: 'dist/sidepanel/index.html',
+  //   }
+  // }
+  // else {
+  //   // the sidebar_action does not work for chromium based
+  //   (manifest as any).side_panel = {
+  //     default_path: 'dist/sidepanel/index.html',
+  //   }
+  // }
 
   // FIXME: not work in MV3
   if (isDev && false) {
