@@ -5,7 +5,6 @@ import type { Tabs } from 'webextension-polyfill'
 if (import.meta.hot) {
   // @ts-expect-error for background HMR
   import('/@vite/client')
-  import('./contentScriptHMR')
 }
 
 browser.runtime.onInstalled.addListener((): void => {
